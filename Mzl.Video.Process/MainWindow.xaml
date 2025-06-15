@@ -1,0 +1,753 @@
+﻿<Window x:Class="Mzl.Video.Process.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mzl.Video.Process"
+        xmlns:fa="http://schemas.fontawesome.com/icons/svg"
+        mc:Ignorable="d"
+        Title="视频处理工具 - Mzl Video Process"
+        Height="800"
+        Width="1200"
+        MinHeight="650"
+        MinWidth="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BackgroundBrush}"
+        WindowStyle="None"
+        AllowsTransparency="True">
+    <Border Background="{StaticResource BackgroundBrush}"
+            CornerRadius="8">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- 自定义标题栏 -->
+            <Border Grid.Row="0"
+                    Background="{StaticResource AccentBrush}"
+                    Padding="20,12"
+                    CornerRadius="8,8,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal">
+                        <Image x:Name="AppIcon"
+                               Width="24"
+                               Height="24"
+                               Margin="0,0,10,0"
+                               VerticalAlignment="Center"
+                               Source="pack://application:,,,/Resources/logo.png" />
+                        <TextBlock Text="视频处理工具"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   Foreground="White" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal">
+                        <Button x:Name="BtnSettings"
+                                Style="{StaticResource ModernButtonStyle}"
+                                Margin="5,0"
+                                Background="White"
+                                Click="BtnSettings_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:SvgAwesome Icon="Solid_Gear"
+                                               Foreground="{StaticResource TextBrush}"
+                                               Width="14"
+                                               Height="14"
+                                               VerticalAlignment="Center" />
+                                <TextBlock Text=" 设置"
+                                           VerticalAlignment="Center"
+                                           Margin="5,0,0,0" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnAbout"
+                                Style="{StaticResource ModernButtonStyle}"
+                                Margin="5,0"
+                                Background="White"
+                                Click="BtnAbout_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:SvgAwesome Icon="Solid_CircleInfo"
+                                               Foreground="{StaticResource TextBrush}"
+                                               Width="14"
+                                               Height="14"
+                                               VerticalAlignment="Center" />
+                                <TextBlock Text=" 关于"
+                                           VerticalAlignment="Center"
+                                           Margin="5,0,0,0" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnMinimize"
+                                Width="40"
+                                Height="40"
+                                Style="{StaticResource ModernButtonStyle}"
+                                Margin="5,0"
+                                Background="White"
+                                Click="BtnMinimize_Click">
+                            <fa:SvgAwesome Icon="Solid_Minus"
+                                           Foreground="{StaticResource TextBrush}"
+                                           Width="14"
+                                           Height="14" />
+                        </Button>
+                        <Button x:Name="BtnMaximize"
+                                Width="40"
+                                Height="40"
+                                Style="{StaticResource ModernButtonStyle}"
+                                Margin="5,0"
+                                Background="White"
+                                Click="BtnMaximize_Click">
+                            <fa:SvgAwesome Icon="Regular_Square"
+                                           Foreground="{StaticResource TextBrush}"
+                                           Width="14"
+                                           Height="14" />
+                        </Button>
+                        <Button x:Name="BtnClose"
+                                Width="40"
+                                Height="40"
+                                Style="{StaticResource ModernButtonStyle}"
+                                Margin="5,0"
+                                Background="#FF5252"
+                                Foreground="White"
+                                Click="BtnClose_Click">
+                            <fa:SvgAwesome Icon="Solid_Xmark"
+                                           Foreground="White"
+                                           Width="14"
+                                           Height="14" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- 主内容区域 -->
+            <TabControl Grid.Row="1"
+                        x:Name="MainTabControl"
+                        Margin="10">
+                <!-- 视频预览标签页 -->
+                <TabItem x:Name="PreviewTab">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <fa:SvgAwesome Icon="Regular_CirclePlay"
+                                           Width="16"
+                                           Height="16"
+                                           VerticalAlignment="Center"
+                                           Foreground="{StaticResource AccentBrush}" />
+                            <TextBlock Text=" 视频预览"
+                                       VerticalAlignment="Center"
+                                       Margin="5,0,0,0" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <!-- 文件选择区域 -->
+                        <StackPanel Grid.Row="0"
+                                    Orientation="Horizontal"
+                                    Margin="0,0,0,15">
+                            <Button x:Name="BtnSelectVideo"
+                                    Style="{StaticResource AccentButtonStyle}"
+                                    Padding="15,8"
+                                    Margin="0,0,10,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:SvgAwesome Icon="Solid_FileVideo"
+                                                   Foreground="White"
+                                                   Width="16"
+                                                   Height="16"
+                                                   VerticalAlignment="Center" />
+                                    <TextBlock Text=" 选择视频文件"
+                                               VerticalAlignment="Center"
+                                               Margin="5,0,0,0" />
+                                </StackPanel>
+                            </Button>
+                            <TextBlock x:Name="TxtSelectedFile"
+                                       Text="未选择文件"
+                                       VerticalAlignment="Center"
+                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                       FontStyle="Italic" />
+                        </StackPanel>
+
+                        <!-- 视频预览区域 -->
+                        <Border Grid.Row="1"
+                                Background="Black"
+                                CornerRadius="8"
+                                BorderBrush="{StaticResource BorderBrush}"
+                                BorderThickness="2">
+                            <Grid>
+                                <MediaElement x:Name="VideoPlayer"
+                                              LoadedBehavior="Manual"
+                                              UnloadedBehavior="Manual"
+                                              Stretch="Uniform" />
+                                <!-- 水印选择覆盖层 -->
+                                <Canvas x:Name="WatermarkCanvas"
+                                        Background="Transparent" />
+                                <!-- 播放控制覆盖层 -->
+                                <Grid VerticalAlignment="Bottom"
+                                      Background="#80000000"
+                                      x:Name="ControlsOverlay"
+                                      Height="60">
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
+                                        <Button x:Name="BtnPlayPause"
+                                                Style="{StaticResource AccentButtonStyle}"
+                                                Width="40"
+                                                Height="40"
+                                                Margin="5"
+                                                Click="BtnPlayPause_Click">
+                                            <fa:SvgAwesome Icon="Solid_Play"
+                                                           Foreground="White"
+                                                           Width="16"
+                                                           Height="16" />
+                                        </Button>
+                                        <Button x:Name="BtnScreenshot"
+                                                Style="{StaticResource ModernButtonStyle}"
+                                                Width="40"
+                                                Height="40"
+                                                Margin="5"
+                                                Click="BtnScreenshot_Click">
+                                            <fa:SvgAwesome Icon="Solid_Camera"
+                                                           Foreground="{StaticResource TextBrush}"
+                                                           Width="16"
+                                                           Height="16" />
+                                        </Button>
+                                        <Button x:Name="BtnStop"
+                                                Style="{StaticResource ModernButtonStyle}"
+                                                Width="40"
+                                                Height="40"
+                                                Margin="5"
+                                                Click="BtnStop_Click">
+                                            <fa:SvgAwesome Icon="Solid_Stop"
+                                                           Foreground="{StaticResource TextBrush}"
+                                                           Width="16"
+                                                           Height="16" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+
+                        <!-- 播放进度条 -->
+                        <Grid Grid.Row="2"
+                              Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="TxtCurrentTime"
+                                       Grid.Column="0"
+                                       Text="00:00"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0" />
+                            <Slider x:Name="ProgressSlider"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Height="20" />
+                            <TextBlock x:Name="TxtTotalTime"
+                                       Grid.Column="2"
+                                       Text="00:00"
+                                       VerticalAlignment="Center"
+                                       Margin="10,0,0,0" />
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <!-- 格式转换标签页 -->
+                <TabItem x:Name="ConvertTab">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <fa:SvgAwesome Icon="Solid_ArrowRightArrowLeft"
+                                           Width="16"
+                                           Height="16"
+                                           VerticalAlignment="Center"
+                                           Foreground="{StaticResource AccentBrush}" />
+                            <TextBlock Text=" 格式转换"
+                                       VerticalAlignment="Center"
+                                       Margin="5,0,0,0" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- 输入文件选择 -->
+                        <Grid Grid.Row="0"
+                              Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                                       Text="输入文件:"
+                                       VerticalAlignment="Center" />
+                            <Button Grid.Column="1"
+                                    x:Name="BtnSelectInputFile"
+                                    Style="{StaticResource AccentButtonStyle}"
+                                    Padding="10,5"
+                                    Margin="0,0,10,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:SvgAwesome Icon="Solid_FileVideo"
+                                                   Foreground="White"
+                                                   Width="16"
+                                                   Height="16"
+                                                   VerticalAlignment="Center" />
+                                    <TextBlock Text=" 选择文件"
+                                               VerticalAlignment="Center"
+                                               Margin="5,0,0,0" />
+                                </StackPanel>
+                            </Button>
+                            <TextBlock Grid.Column="2"
+                                       x:Name="TxtInputFile"
+                                       Text="未选择文件"
+                                       VerticalAlignment="Center"
+                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                       TextTrimming="CharacterEllipsis" />
+                        </Grid>
+
+                        <!-- 输出文件选择 -->
+                        <Grid Grid.Row="1"
+                              Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                                       Text="输出文件:"
+                                       VerticalAlignment="Center" />
+                            <Button Grid.Column="1"
+                                    x:Name="BtnSelectOutputFile"
+                                    Style="{StaticResource ModernButtonStyle}"
+                                    Padding="10,5"
+                                    Margin="0,0,10,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:SvgAwesome Icon="Solid_FolderOpen"
+                                                   Foreground="{StaticResource TextBrush}"
+                                                   Width="16"
+                                                   Height="16"
+                                                   VerticalAlignment="Center" />
+                                    <TextBlock Text=" 选择保存位置"
+                                               VerticalAlignment="Center"
+                                               Margin="5,0,0,0" />
+                                </StackPanel>
+                            </Button>
+                            <TextBlock Grid.Column="2"
+                                       x:Name="TxtOutputFile"
+                                       Text="未选择位置"
+                                       VerticalAlignment="Center"
+                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                       TextTrimming="CharacterEllipsis" />
+                        </Grid>
+
+                        <!-- 转换设置 -->
+                        <StackPanel Grid.Row="2"
+                                    Orientation="Horizontal"
+                                    Margin="0,0,0,20">
+                            <StackPanel Margin="0,0,30,0">
+                                <TextBlock Text="输出格式:"
+                                           Margin="0,0,0,5"
+                                           FontWeight="SemiBold" />
+                                <ComboBox x:Name="CmbOutputFormat"
+                                          Width="120"
+                                          Height="30">
+                                    <ComboBoxItem Content="MP4"
+                                                  IsSelected="True" />
+                                    <ComboBoxItem Content="AVI" />
+                                    <ComboBoxItem Content="MOV" />
+                                    <ComboBoxItem Content="MKV" />
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Margin="0,0,30,0">
+                                <TextBlock Text="视频质量:"
+                                           Margin="0,0,0,5"
+                                           FontWeight="SemiBold" />
+                                <ComboBox x:Name="CmbQuality"
+                                          Width="120"
+                                          Height="30">
+                                    <ComboBoxItem Content="高质量"
+                                                  IsSelected="True" />
+                                    <ComboBoxItem Content="中等质量" />
+                                    <ComboBoxItem Content="低质量" />
+                                    <ComboBoxItem Content="自定义" />
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel>
+                                <TextBlock Text="分辨率:"
+                                           Margin="0,0,0,5"
+                                           FontWeight="SemiBold" />
+                                <ComboBox x:Name="CmbResolution"
+                                          Width="140"
+                                          Height="30">
+                                    <ComboBoxItem Content="保持原始"
+                                                  IsSelected="True" />
+                                    <ComboBoxItem Content="1920×1080" />
+                                    <ComboBoxItem Content="1280×720" />
+                                    <ComboBoxItem Content="854×480" />
+                                </ComboBox>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- 转换按钮 -->
+                        <StackPanel Grid.Row="3"
+                                    Orientation="Horizontal"
+                                    Margin="0,0,0,20">
+                            <Button x:Name="BtnStartConvert"
+                                    Style="{StaticResource AccentButtonStyle}"
+                                    Width="120"
+                                    Height="35"
+                                    Margin="0,0,10,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:SvgAwesome Icon="Regular_CirclePlay"
+                                                   Foreground="White"
+                                                   Width="16"
+                                                   Height="16"
+                                                   VerticalAlignment="Center" />
+                                    <TextBlock Text=" 开始转换"
+                                               VerticalAlignment="Center"
+                                               Margin="5,0,0,0" />
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="BtnStopConvert"
+                                    Style="{StaticResource ModernButtonStyle}"
+                                    IsEnabled="False"
+                                    Width="120"
+                                    Height="35">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:SvgAwesome Icon="Solid_Stop"
+                                                   Foreground="{StaticResource TextBrush}"
+                                                   Width="16"
+                                                   Height="16"
+                                                   VerticalAlignment="Center" />
+                                    <TextBlock Text=" 停止转换"
+                                               VerticalAlignment="Center"
+                                               Margin="5,0,0,0" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                        <!-- 转换进度 -->
+                        <StackPanel Grid.Row="4"
+                                    Margin="0,0,0,20">
+                            <TextBlock x:Name="TxtConvertStatus"
+                                       Text="准备就绪"
+                                       Margin="0,0,0,10"
+                                       FontWeight="SemiBold" />
+                            <ProgressBar x:Name="ConvertProgressBar"
+                                         Height="8"
+                                         Value="0"
+                                         Maximum="100" />
+                            <TextBlock x:Name="TxtConvertProgress"
+                                       Text=""
+                                       HorizontalAlignment="Right"
+                                       Margin="0,5,0,0"
+                                       FontSize="12"
+                                       Foreground="{StaticResource TextSecondaryBrush}" />
+                        </StackPanel>
+
+                        <!-- 转换日志 -->
+                        <Border Grid.Row="5"
+                                BorderBrush="{StaticResource BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="4"
+                                Height="150"
+                                Background="{StaticResource SurfaceBrush}">
+                            <ScrollViewer x:Name="LogScrollViewer"
+                                          VerticalScrollBarVisibility="Auto">
+                                <TextBlock x:Name="TxtConvertLog"
+                                           Padding="10"
+                                           FontFamily="Consolas"
+                                           FontSize="11"
+                                           TextWrapping="Wrap" />
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+                </TabItem>
+                <!-- 去水印标签页 -->
+                <TabItem x:Name="WatermarkTab">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <fa:SvgAwesome Icon="Solid_Eraser"
+                                           Width="16"
+                                           Height="16"
+                                           VerticalAlignment="Center"
+                                           Foreground="{StaticResource AccentBrush}" />
+                            <TextBlock Text=" 去水印"
+                                       VerticalAlignment="Center"
+                                       Margin="5,0,0,0" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Margin="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- 左侧视频预览 -->
+                        <Grid Grid.Column="0"
+                              Margin="0,0,10,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0"
+                                        Orientation="Horizontal"
+                                        Margin="0,0,0,15">
+                                <Button x:Name="BtnSelectWatermarkVideo"
+                                        Style="{StaticResource AccentButtonStyle}"
+                                        Padding="10,5"
+                                        Margin="0,0,10,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:SvgAwesome Icon="Solid_FileVideo"
+                                                       Foreground="White"
+                                                       Width="16"
+                                                       Height="16"
+                                                       VerticalAlignment="Center" />
+                                        <TextBlock Text=" 选择视频"
+                                                   VerticalAlignment="Center"
+                                                   Margin="5,0,0,0" />
+                                    </StackPanel>
+                                </Button>
+                                <TextBlock x:Name="TxtWatermarkVideoFile"
+                                           Text="未选择文件"
+                                           VerticalAlignment="Center"
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+
+                            <Border Grid.Row="1"
+                                    Background="Black"
+                                    CornerRadius="8"
+                                    BorderBrush="{StaticResource BorderBrush}"
+                                    BorderThickness="2">
+                                <Grid>
+                                    <MediaElement x:Name="WatermarkVideoPlayer"
+                                                  LoadedBehavior="Manual"
+                                                  UnloadedBehavior="Manual"
+                                                  Stretch="Uniform" />
+
+                                    <!-- 水印区域选择覆盖层 -->
+                                    <Canvas x:Name="WatermarkSelectionCanvas"
+                                            Background="Transparent"
+                                            MouseLeftButtonDown="WatermarkSelectionCanvas_MouseLeftButtonDown"
+                                            MouseMove="WatermarkSelectionCanvas_MouseMove"
+                                            MouseLeftButtonUp="WatermarkSelectionCanvas_MouseLeftButtonUp">
+
+                                        <!-- 水印选择矩形 -->
+                                        <Rectangle x:Name="WatermarkSelectionRect"
+                                                   Stroke="Red"
+                                                   StrokeThickness="2"
+                                                   Fill="Transparent"
+                                                   StrokeDashArray="5,5"
+                                                   Visibility="Collapsed" />
+                                    </Canvas>
+                                </Grid>
+                            </Border>
+                            <!-- 播放控制 -->
+                            <StackPanel Grid.Row="2"
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,10,0,0">
+                                <Button x:Name="BtnWatermarkPlayPause"
+                                        Content="▶"
+                                        FontSize="16"
+                                        Style="{StaticResource AccentButtonStyle}"
+                                        Width="40"
+                                        Height="40"
+                                        Margin="5"
+                                        Click="BtnWatermarkPlayPause_Click" />
+                                <Button x:Name="BtnWatermarkScreenshot"
+                                        Content="📷"
+                                        FontSize="14"
+                                        Style="{StaticResource ModernButtonStyle}"
+                                        Width="40"
+                                        Height="40"
+                                        Margin="5"
+                                        Click="BtnWatermarkScreenshot_Click" />
+                                <Button x:Name="BtnWatermarkStop"
+                                        Content="⏹"
+                                        FontSize="16"
+                                        Style="{StaticResource ModernButtonStyle}"
+                                        Width="40"
+                                        Height="40"
+                                        Margin="5"
+                                        Click="BtnWatermarkStop_Click" />
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- 右侧控制面板 -->
+                        <StackPanel Grid.Column="1"
+                                    Margin="10,0,0,0">
+
+                            <!-- 水印区域信息 -->
+                            <GroupBox Header="水印区域"
+                                      Margin="0,0,0,15"
+                                      Padding="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="0"
+                                               Text="X: "
+                                               Margin="0,0,5,5" />
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="1"
+                                               x:Name="TxtWatermarkX"
+                                               Text="0"
+                                               Margin="0,0,0,5" />
+
+                                    <TextBlock Grid.Row="1"
+                                               Grid.Column="0"
+                                               Text="Y: "
+                                               Margin="0,0,5,5" />
+                                    <TextBlock Grid.Row="1"
+                                               Grid.Column="1"
+                                               x:Name="TxtWatermarkY"
+                                               Text="0"
+                                               Margin="0,0,0,5" />
+
+                                    <TextBlock Grid.Row="2"
+                                               Grid.Column="0"
+                                               Text="宽度: "
+                                               Margin="0,0,5,5" />
+                                    <TextBlock Grid.Row="2"
+                                               Grid.Column="1"
+                                               x:Name="TxtWatermarkWidth"
+                                               Text="0"
+                                               Margin="0,0,0,5" />
+
+                                    <TextBlock Grid.Row="3"
+                                               Grid.Column="0"
+                                               Text="高度: "
+                                               Margin="0,0,5,0" />
+                                    <TextBlock Grid.Row="3"
+                                               Grid.Column="1"
+                                               x:Name="TxtWatermarkHeight"
+                                               Text="0" />
+                                </Grid>
+                            </GroupBox>
+                            <!-- 去水印方法 -->
+                            <GroupBox Header="去水印方法"
+                                      Margin="0,0,0,15"
+                                      Padding="10">
+                                <StackPanel>
+                                    <RadioButton x:Name="RbBlur"
+                                                 Content="模糊处理"
+                                                 IsChecked="True"
+                                                 Margin="0,0,0,5" />
+                                    <RadioButton x:Name="RbMosaic"
+                                                 Content="马赛克"
+                                                 Margin="0,0,0,5" />
+                                    <RadioButton x:Name="RbCrop"
+                                                 Content="裁剪移除"
+                                                 Margin="0,0,0,5" />
+                                    <RadioButton x:Name="RbInpaint"
+                                                 Content="智能填充"
+                                                 Margin="0,0,0,5" />
+                                    <RadioButton x:Name="RbDelogo"
+                                                 Content="Delogo滤镜" />
+                                </StackPanel>
+                            </GroupBox>
+                            <!-- 输出设置 -->
+                            <GroupBox Header="输出设置"
+                                      Margin="0,0,0,15"
+                                      Padding="10">
+                                <StackPanel>
+                                    <Button x:Name="BtnSelectWatermarkOutput"
+                                            Content="选择输出位置"
+                                            Style="{StaticResource ModernButtonStyle}"
+                                            HorizontalAlignment="Stretch"
+                                            Margin="0,0,0,10" />
+
+                                    <TextBlock x:Name="TxtWatermarkOutput"
+                                               Text="未选择输出位置"
+                                               TextWrapping="Wrap"
+                                               Foreground="{StaticResource TextSecondaryBrush}"
+                                               FontSize="11" />
+                                </StackPanel>
+                            </GroupBox>
+
+                            <!-- 操作按钮 -->
+                            <StackPanel Margin="0,0,0,15">
+                                <Button x:Name="BtnStartWatermarkRemoval"
+                                        Style="{StaticResource AccentButtonStyle}"
+                                        HorizontalAlignment="Stretch"
+                                        Height="35"
+                                        Margin="0,0,0,10">
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Center">
+                                        <fa:SvgAwesome Icon="Solid_Eraser"
+                                                       Foreground="White"
+                                                       Width="16"
+                                                       Height="16"
+                                                       VerticalAlignment="Center" />
+                                        <TextBlock Text=" 开始去水印"
+                                                   VerticalAlignment="Center"
+                                                   Margin="5,0,0,0" />
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="BtnClearWatermarkSelection"
+                                        Style="{StaticResource ModernButtonStyle}"
+                                        HorizontalAlignment="Stretch"
+                                        Height="35">
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Center">
+                                        <fa:SvgAwesome Icon="Solid_Trash"
+                                                       Foreground="{StaticResource TextBrush}"
+                                                       Width="16"
+                                                       Height="16"
+                                                       VerticalAlignment="Center" />
+                                        <TextBlock Text=" 清除选择"
+                                                   VerticalAlignment="Center"
+                                                   Margin="5,0,0,0" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+
+                            <!-- 处理进度 -->
+                            <GroupBox Header="处理进度"
+                                      Padding="10">
+                                <StackPanel>
+                                    <ProgressBar x:Name="WatermarkProgressBar"
+                                                 Height="8"
+                                                 Value="0"
+                                                 Maximum="100"
+                                                 Margin="0,0,0,5" />
+                                    <TextBlock x:Name="TxtWatermarkProgress"
+                                               Text=""
+                                               FontSize="11"
+                                               Foreground="{StaticResource TextSecondaryBrush}" />
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Border>
+</Window>
