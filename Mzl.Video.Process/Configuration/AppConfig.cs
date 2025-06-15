@@ -10,8 +10,8 @@ namespace Mzl.Video.Process.Configuration;
 public static class AppConfig
 {
     private static readonly string ConfigFilePath = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "MzlVideoProcess",
+        Environment.CurrentDirectory,
+        "Configs",
         "config.json"
     );
 
@@ -117,10 +117,10 @@ public static class AppConfig
     /// </summary>
     private class ConfigData
     {
-        public string FFmpegBinaryPath { get; set; } = @"f:\test";
-        public string ScreenshotPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        public string DefaultInputPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        public string DefaultOutputPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        public string FFmpegBinaryPath { get; set; } = Path.Combine(Environment.CurrentDirectory, "ffmpeg");
+        public string ScreenshotPath { get; set; } = Environment.CurrentDirectory;
+        public string DefaultInputPath { get; set; } = Environment.CurrentDirectory;
+        public string DefaultOutputPath { get; set; } = Environment.CurrentDirectory;
         public bool AutoLoadFirstFrame { get; set; } = true;
         public double PreviewFrameTime { get; set; } = 1.0;
     }
@@ -191,10 +191,10 @@ public static class AppConfig
     /// </summary>
     public static void RestoreDefaults()
     {
-        FFmpegBinaryPath = @"f:\test";
-        ScreenshotPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        DefaultInputPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        DefaultOutputPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        FFmpegBinaryPath = Path.Combine(Environment.CurrentDirectory, "ffmpeg");
+        ScreenshotPath = Environment.CurrentDirectory;
+        DefaultInputPath = Environment.CurrentDirectory;
+        DefaultOutputPath = Environment.CurrentDirectory;
         AutoLoadFirstFrame = true;
         PreviewFrameTime = 1.0;
     }

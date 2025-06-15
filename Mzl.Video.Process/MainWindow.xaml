@@ -57,7 +57,7 @@
                                 Click="BtnSettings_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:SvgAwesome Icon="Solid_Gear"
-                                               Foreground="{StaticResource TextBrush}"
+                                               PrimaryColor="{StaticResource TextBrush}"
                                                Width="14"
                                                Height="14"
                                                VerticalAlignment="Center" />
@@ -73,7 +73,7 @@
                                 Click="BtnAbout_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:SvgAwesome Icon="Solid_CircleInfo"
-                                               Foreground="{StaticResource TextBrush}"
+                                               PrimaryColor="{StaticResource TextBrush}"
                                                Width="14"
                                                Height="14"
                                                VerticalAlignment="Center" />
@@ -90,7 +90,7 @@
                                 Background="White"
                                 Click="BtnMinimize_Click">
                             <fa:SvgAwesome Icon="Solid_Minus"
-                                           Foreground="{StaticResource TextBrush}"
+                                           PrimaryColor="{StaticResource TextBrush}"
                                            Width="14"
                                            Height="14" />
                         </Button>
@@ -102,7 +102,7 @@
                                 Background="White"
                                 Click="BtnMaximize_Click">
                             <fa:SvgAwesome Icon="Regular_Square"
-                                           Foreground="{StaticResource TextBrush}"
+                                           PrimaryColor="{StaticResource TextBrush}"
                                            Width="14"
                                            Height="14" />
                         </Button>
@@ -115,7 +115,7 @@
                                 Foreground="White"
                                 Click="BtnClose_Click">
                             <fa:SvgAwesome Icon="Solid_Xmark"
-                                           Foreground="White"
+                                           PrimaryColor="{StaticResource SurfaceBrush}"
                                            Width="14"
                                            Height="14" />
                         </Button>
@@ -135,7 +135,7 @@
                                            Width="16"
                                            Height="16"
                                            VerticalAlignment="Center"
-                                           Foreground="{StaticResource AccentBrush}" />
+                                           PrimaryColor="{StaticResource AccentBrush}" />
                             <TextBlock Text=" 视频预览"
                                        VerticalAlignment="Center"
                                        Margin="5,0,0,0" />
@@ -154,10 +154,11 @@
                             <Button x:Name="BtnSelectVideo"
                                     Style="{StaticResource AccentButtonStyle}"
                                     Padding="15,8"
-                                    Margin="0,0,10,0">
+                                    Margin="0,0,10,0"
+                                    Click="BtnSelectVideo_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:SvgAwesome Icon="Solid_FileVideo"
-                                                   Foreground="White"
+                                                   PrimaryColor="{StaticResource SurfaceBrush}"
                                                    Width="16"
                                                    Height="16"
                                                    VerticalAlignment="Center" />
@@ -202,7 +203,7 @@
                                                 Margin="5"
                                                 Click="BtnPlayPause_Click">
                                             <fa:SvgAwesome Icon="Solid_Play"
-                                                           Foreground="White"
+                                                           PrimaryColor="{ StaticResource SurfaceBrush}"
                                                            Width="16"
                                                            Height="16" />
                                         </Button>
@@ -213,7 +214,7 @@
                                                 Margin="5"
                                                 Click="BtnScreenshot_Click">
                                             <fa:SvgAwesome Icon="Solid_Camera"
-                                                           Foreground="{StaticResource TextBrush}"
+                                                           PrimaryColor="{StaticResource TextBrush}"
                                                            Width="16"
                                                            Height="16" />
                                         </Button>
@@ -224,7 +225,7 @@
                                                 Margin="5"
                                                 Click="BtnStop_Click">
                                             <fa:SvgAwesome Icon="Solid_Stop"
-                                                           Foreground="{StaticResource TextBrush}"
+                                                           PrimaryColor="{StaticResource TextBrush}"
                                                            Width="16"
                                                            Height="16" />
                                         </Button>
@@ -267,7 +268,7 @@
                                            Width="16"
                                            Height="16"
                                            VerticalAlignment="Center"
-                                           Foreground="{StaticResource AccentBrush}" />
+                                           PrimaryColor="{StaticResource AccentBrush}" />
                             <TextBlock Text=" 格式转换"
                                        VerticalAlignment="Center"
                                        Margin="5,0,0,0" />
@@ -299,10 +300,11 @@
                                     x:Name="BtnSelectInputFile"
                                     Style="{StaticResource AccentButtonStyle}"
                                     Padding="10,5"
-                                    Margin="0,0,10,0">
+                                    Margin="0,0,10,0"
+                                    Click="BtnSelectInputFile_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:SvgAwesome Icon="Solid_FileVideo"
-                                                   Foreground="White"
+                                                   PrimaryColor="{StaticResource SurfaceBrush}"
                                                    Width="16"
                                                    Height="16"
                                                    VerticalAlignment="Center" />
@@ -335,10 +337,11 @@
                                     x:Name="BtnSelectOutputFile"
                                     Style="{StaticResource ModernButtonStyle}"
                                     Padding="10,5"
-                                    Margin="0,0,10,0">
+                                    Margin="0,0,10,0"
+                                    Click="BtnSelectOutputFile_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:SvgAwesome Icon="Solid_FolderOpen"
-                                                   Foreground="{StaticResource TextBrush}"
+                                                   PrimaryColor="{StaticResource TextBrush}"
                                                    Width="16"
                                                    Height="16"
                                                    VerticalAlignment="Center" />
@@ -416,7 +419,7 @@
                                     Margin="0,0,10,0">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:SvgAwesome Icon="Regular_CirclePlay"
-                                                   Foreground="White"
+                                                   PrimaryColor="{StaticResource SurfaceBrush}"
                                                    Width="16"
                                                    Height="16"
                                                    VerticalAlignment="Center" />
@@ -432,7 +435,7 @@
                                     Height="35">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:SvgAwesome Icon="Solid_Stop"
-                                                   Foreground="{StaticResource TextBrush}"
+                                                   PrimaryColor="{StaticResource TextBrush}"
                                                    Width="16"
                                                    Height="16"
                                                    VerticalAlignment="Center" />
@@ -487,7 +490,7 @@
                                            Width="16"
                                            Height="16"
                                            VerticalAlignment="Center"
-                                           Foreground="{StaticResource AccentBrush}" />
+                                           PrimaryColor="{StaticResource AccentBrush}" />
                             <TextBlock Text=" 去水印"
                                        VerticalAlignment="Center"
                                        Margin="5,0,0,0" />
@@ -513,10 +516,11 @@
                                 <Button x:Name="BtnSelectWatermarkVideo"
                                         Style="{StaticResource AccentButtonStyle}"
                                         Padding="10,5"
-                                        Margin="0,0,10,0">
+                                        Margin="0,0,10,0"
+                                        Click="BtnSelectWatermarkVideo_Click">
                                     <StackPanel Orientation="Horizontal">
                                         <fa:SvgAwesome Icon="Solid_FileVideo"
-                                                       Foreground="White"
+                                                       PrimaryColor="{StaticResource SurfaceBrush}"
                                                        Width="16"
                                                        Height="16"
                                                        VerticalAlignment="Center" />
@@ -682,7 +686,8 @@
                                             Content="选择输出位置"
                                             Style="{StaticResource ModernButtonStyle}"
                                             HorizontalAlignment="Stretch"
-                                            Margin="0,0,0,10" />
+                                            Margin="0,0,0,10"
+                                            Click="BtnSelectWatermarkOutput_Click" />
 
                                     <TextBlock x:Name="TxtWatermarkOutput"
                                                Text="未选择输出位置"
@@ -702,7 +707,7 @@
                                     <StackPanel Orientation="Horizontal"
                                                 HorizontalAlignment="Center">
                                         <fa:SvgAwesome Icon="Solid_Eraser"
-                                                       Foreground="White"
+                                                       PrimaryColor="{StaticResource SurfaceBrush}"
                                                        Width="16"
                                                        Height="16"
                                                        VerticalAlignment="Center" />
@@ -718,7 +723,7 @@
                                     <StackPanel Orientation="Horizontal"
                                                 HorizontalAlignment="Center">
                                         <fa:SvgAwesome Icon="Solid_Trash"
-                                                       Foreground="{StaticResource TextBrush}"
+                                                       PrimaryColor="{StaticResource TextBrush}"
                                                        Width="16"
                                                        Height="16"
                                                        VerticalAlignment="Center" />

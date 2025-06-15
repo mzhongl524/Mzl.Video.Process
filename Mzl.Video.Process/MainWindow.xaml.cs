@@ -228,12 +228,29 @@ namespace Mzl.Video.Process
 
         #region 文件选择
 
+        private void BtnSelectVideo_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "视频文件|*.mp4;*.avi;*.mkv;*.mov;*.wmv;*.flv;*.m3u8,*.ts|所有文件|*.*",
+                Title = "选择视频文件",
+                DefaultDirectory = AppConfig.FFmpegBinaryPath
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                TxtSelectedFile.Text = openFileDialog.FileName;
+                LoadVideo(openFileDialog.FileName);
+            }
+        }
+
         private void BtnSelectInputFile_Click(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
                 Filter = "视频文件|*.mp4;*.avi;*.mkv;*.mov;*.wmv;*.flv;*.webm;*.m4v|所有文件|*.*",
-                Title = "选择输入视频文件"
+                Title = "选择输入视频文件",
+                DefaultDirectory = AppConfig.DefaultInputPath
             };
 
             if (openFileDialog.ShowDialog() == true)
@@ -248,7 +265,8 @@ namespace Mzl.Video.Process
             var saveFileDialog = new Microsoft.Win32.SaveFileDialog
             {
                 Filter = "MP4文件|*.mp4|AVI文件|*.avi|所有文件|*.*",
-                Title = "选择输出文件位置"
+                Title = "选择输出文件位置",
+                DefaultDirectory = AppConfig.DefaultOutputPath
             };
 
             if (saveFileDialog.ShowDialog() == true)
@@ -327,7 +345,8 @@ namespace Mzl.Video.Process
             var openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
                 Filter = "视频文件|*.mp4;*.avi;*.mkv;*.mov;*.wmv;*.flv;*.webm;*.m4v|所有文件|*.*",
-                Title = "选择水印视频文件"
+                Title = "选择水印视频文件",
+                DefaultDirectory = AppConfig.DefaultInputPath
             };
 
             if (openFileDialog.ShowDialog() == true)
@@ -491,7 +510,8 @@ namespace Mzl.Video.Process
             var saveFileDialog = new Microsoft.Win32.SaveFileDialog
             {
                 Filter = "MP4文件|*.mp4|AVI文件|*.avi|所有文件|*.*",
-                Title = "选择输出文件位置"
+                Title = "选择输出文件位置",
+                DefaultDirectory = AppConfig.DefaultOutputPath,
             };
 
             if (saveFileDialog.ShowDialog() == true)
