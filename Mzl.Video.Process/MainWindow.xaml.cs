@@ -64,7 +64,7 @@ namespace Mzl.Video.Process
 
         private void ProgressTimer_Tick(object? sender, EventArgs e)
         {
-            if (MainTabControl.SelectedItem == ConvertTab)
+            if (MainTabControl.SelectedItem == PreviewTab)
             {
                 if (_isPlaying && VideoPlayer.NaturalDuration.HasTimeSpan)
                 {
@@ -112,6 +112,7 @@ namespace Mzl.Video.Process
                 VideoPlayer.Source = new Uri(filePath);
                 VideoPlayer.LoadedBehavior = MediaState.Manual;
                 VideoPlayer.UnloadedBehavior = MediaState.Close;
+                VideoPlayer.MediaOpened += VideoPlayer_MediaOpened;
 
                 if (AppConfig.AutoLoadFirstFrame)
                 {
@@ -222,6 +223,34 @@ namespace Mzl.Video.Process
         private void ProgressSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             _isDragging = false;
+        }
+
+        private void ProgressSlider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // 在slider上点击时，将视频定位到对应的位置
+            if (VideoPlayer.NaturalDuration.HasTimeSpan)
+            {
+                // 获取点击位置对应的值
+                var slider = sender as Slider;
+                System.Windows.Point clickPoint = e.GetPosition(slider);
+
+                // 计算点击位置相对于滑块的比例
+                double ratio = clickPoint.X / slider.ActualWidth;
+                double seekValue = ratio * slider.Maximum;
+
+                // 设置滑块的位置
+                slider.Value = seekValue;
+
+                // 将视频设置到相应的位置
+                VideoPlayer.Position = TimeSpan.FromMilliseconds(seekValue);
+                TxtCurrentTime.Text = FormatTime(VideoPlayer.Position);
+
+                // 如果视频正在播放，则继续播放
+                if (_isPlaying)
+                {
+                    VideoPlayer.Play();
+                }
+            }
         }
 
         #endregion 视频播放控制

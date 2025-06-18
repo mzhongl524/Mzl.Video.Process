@@ -251,7 +251,11 @@
                             <Slider x:Name="ProgressSlider"
                                     Grid.Column="1"
                                     VerticalAlignment="Center"
-                                    Height="20" />
+                                    Height="20"
+                                    ValueChanged="ProgressSlider_ValueChanged"
+                                    PreviewMouseDown="ProgressSlider_PreviewMouseDown"
+                                    PreviewMouseUp="ProgressSlider_PreviewMouseUp"
+                                    MouseLeftButtonUp="ProgressSlider_MouseLeftButtonUp" />
                             <TextBlock x:Name="TxtTotalTime"
                                        Grid.Column="2"
                                        Text="00:00"
